@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short polling example</title>
+</head>
+<body>
+    <h1>Short polling Example</h1>
+    <div id="data-container">
+        <p>Version: <span id = "version"></span></p>
+    </div>
+    <script>
+        const container  = document.getElementById("data-container");
+        const versionElement = document.getElementById("version");
+        let intervalId;
+
+        async function fetchVersion(){
+         try {
+            const resposne = await fetch("http://localhost:5001/api/v1/getData");
+
+            //The second line is async because calling resposne.json() reads the response body from the network stream and then parses it as JSON, which can take time.
+            // This process may involve waiting for all data to arrive from the server, so it returns a Promise and must be awaited. That’s why you use await with resposne.json().
+            const data = await resposne.json();
+            versionElement.innerText = data.version
+         } catch (error) {
+            console.log({error});
+         }   
+        }
+        function shortPolling(){
+           intervalId =  setInterval(fetchVersion,  5000)
+        }
+        fetchVersion();
+        shortPolling();
+
+        // Clear interval on some user navigation, action etc.
+
+    </script>
+</body>
+</html>
