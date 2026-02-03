@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Websocket</title>
+  </head>
+  <body>
+    <form id="form">
+      <input id="chat-box" , type="text" placeholder="Enter message" />
+      <button type="submit">send</button>
+    </form>
+
+    <script>
+      const form = document.getElementById("form");
+      const input = document.getElementById("chat-box");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        console.log(input.value);
+        input.value = "";
+      });
+    </script>
+  </body>
+</html>
