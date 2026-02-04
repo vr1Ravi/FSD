@@ -14,7 +14,12 @@ IO.on("connection", (socket) => {
   console.log("Connection established");
 
   socket.on("chat-message", (message) => {
+    console.log("Message received");
     IO.emit("chat-message", message);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
   });
 });
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -23,6 +28,6 @@ app.get("/", (req, res) => {
 });
 
 const port = 5001;
-app.listen(port, () => {
+server.listen(port, () => {
   console.log("Server running on port", port);
 });
